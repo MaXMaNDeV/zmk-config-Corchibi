@@ -39,11 +39,11 @@
     input-type = <INPUT_EV_REL>;
     codes = <INPUT_REL_X INPUT_REL_Y>;
     sensor-dpi = <1200>;
-    min-factor = <500>; 
-    max-factor = <800>; 
-    speed-threshold = <500>; 
-    speed-max = <1500>; 
-    acceleration-exponent = <1>; 
+    min-factor = <150>;   /* ゆっくり動かした時: CPI 1200 の 0.15倍。劇的に小さく繊細に。 */
+    max-factor = <400>;   /* 速く動かした時: CPI 1200 の 0.4倍。吹っ飛びを抑える。 */
+    speed-threshold = <300>; 
+    speed-max = <1200>; 
+    acceleration-exponent = <1500>; /* 加速の立ち上がりを緩やかにし、低速域を広く取る。 */
 };
 
 / {

@@ -58,7 +58,6 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
-    /* アドレスをRと同じ 0x73 に修正 */
     trackball_L: trackball_L@73 {
         compatible = "pixart,pat912x";
         reg = <0x73>;
@@ -68,10 +67,12 @@
         res-y-cpi = <1200>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
-        
-        /* L側で直接1/100感度とレート制限を処理してからRへ送る */
-        input-processors = 
-            <&zip_report_rate_limit 8>,
-            <&pointer_accel>;
     };
+};
+
+&trackball_split_L {
+    device = <&trackball_L>;
+    input-processors = 
+        <&zip_report_rate_limit 8>,
+        <&pointer_accel>;
 };

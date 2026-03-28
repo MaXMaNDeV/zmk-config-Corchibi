@@ -14,6 +14,14 @@
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
+
+        lt_tog: layer_tap_toggle {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&tog>;
+        };
     };
 
     macros {
@@ -116,7 +124,7 @@
 /* c41(10,1) c42(10,2) c43(11,3)  c44(9,1) */
    &kp H     &kp N     &kp BSPC   &kp C_VOL_UP
 /* c45(14,0) c46(13,1)      c47(12,2)  c48(10,0) c49(10,3) */
-   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &mo 4
+   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &lt_tog 4 1
             >;
         };
 
@@ -132,7 +140,7 @@
 
 &trans &trans &trans &trans
 &trans &trans &trans &trans
-&trans &trans &trans &trans
+&trans &trans &trans &mo 2
 &trans &mkp MB1 &trans &trans
 &trans &trans &trans &trans
 &trans &mkp MB2 &trans &trans &trans

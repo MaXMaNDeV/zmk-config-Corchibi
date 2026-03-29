@@ -39,7 +39,7 @@
     input-type = <INPUT_EV_REL>;
     codes = <INPUT_REL_X INPUT_REL_Y>;
     sensitivity = <10>; 
-    min-factor = <1000>; 
+    min-factor = <2000>; 
     max-factor = <2000>; 
     speed-threshold = <400>;   
     speed-max = <3000>;        

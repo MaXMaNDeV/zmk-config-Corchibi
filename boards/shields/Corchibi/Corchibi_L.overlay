@@ -47,7 +47,7 @@
     trackball_L: trackball_L@73 {
         compatible = "pixart,pat912x";
         reg = <0x73>;
-        status = "okay";
+        status = "disabled";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <1200>;
         res-y-cpi = <1200>;

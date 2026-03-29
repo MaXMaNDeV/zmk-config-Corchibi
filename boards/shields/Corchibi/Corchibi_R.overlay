@@ -115,9 +115,9 @@
     };
 };
 
-/* L側のトラックボール信号を親機でマウスカーソルとして上書き受信する設定 */
+/* L側のトラックボール信号を親機でマウスカーソルとして上書き受信する設定（未接続のため無効化） */
 &trackball_listener_L {
-    status = "okay";
+    status = "disabled";
     device = <&trackball_split_L>;
     input-processors = 
         <&zip_report_rate_limit 8>,

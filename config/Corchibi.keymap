@@ -263,7 +263,7 @@
 /* Right */
 &trans &trans &trans &trans
 &trans &trans &trans &kp LG(RIGHT)
-&kp PG_DN &trans &trans &mkp MB3
+&kp PG_DN &trans &trans &mo 2
 &kp LG(LEFT) &mkp MB1 &kp PG_UP &trans
 &trans &trans &trans &trans
 &trans &mkp MB2 &trans &trans &trans

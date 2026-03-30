@@ -93,7 +93,7 @@
         layers = <9>;
         input-processors =
             <&zip_report_rate_limit 8>,
-            <&zip_xy_scaler 1 8>;
+            <&zip_xy_scaler 1 4>;
     };
 };
 

@@ -58,8 +58,6 @@
     };
 };
 
-/* センサー未接続のため無効化
 &trackball_split_L {
-    device = <&trackball_L>;
+    status = "disabled";
 };
-*/

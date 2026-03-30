@@ -77,8 +77,7 @@
     device = <&trackball_R>;
     input-processors =
         <&zip_report_rate_limit 8>,
-        <&auto_mouse_layer 8 500>,
-        <&pointer_accel>;
+        <&auto_mouse_layer 8 500>;
 
     scroll_layer {
         layers = <2>;
@@ -113,8 +112,8 @@
         reg = <0x73>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        res-x-cpi = <1200>;
-        res-y-cpi = <1200>;
+        res-x-cpi = <700>;
+        res-y-cpi = <700>;
         sleep1-enable;
         sleep2-enable;
         zephyr,axis-x = <INPUT_REL_X>;
@@ -126,8 +125,8 @@
         reg = <0x75>;
         status = "disabled";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        res-x-cpi = <1200>;
-        res-y-cpi = <1200>;
+        res-x-cpi = <700>;
+        res-y-cpi = <700>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
     };

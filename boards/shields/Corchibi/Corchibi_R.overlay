@@ -90,7 +90,7 @@
             <&zip_xy_to_scroll_mapper>;
     };
 
-    snipe_layer {
+    snipe_mode {
         layers = <9>;
         input-processors =
             <&zip_report_rate_limit 8>,

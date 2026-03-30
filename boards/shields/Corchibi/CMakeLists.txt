@@ -18,7 +18,7 @@ string(
 # Patch 2: Movement threshold filter (abs(x)+abs(y) <= 2 is noise)
 string(
   REPLACE "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\tif (cfg->axis_x >= 0) {"
-          "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\tif (abs(x) + abs(y) <= 2) {\n\t\tk_work_submit(&data->motion_work);\n\t\treturn;\n\t}\n\n\tif (cfg->axis_x >= 0) {"
+          "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\tif (abs(x) + abs(y) <= 1) {\n\t\tk_work_submit(&data->motion_work);\n\t\treturn;\n\t}\n\n\tif (cfg->axis_x >= 0) {"
   FILE_CONTENT "${FILE_CONTENT}"
 )
 

@@ -29,7 +29,7 @@ string(
 # Patch 2b: Add accumulator logic before input_report_rel
 string(
   REPLACE "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\tif (cfg->axis_x >= 0) {"
-          "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\t\/\/ Movement accumulator (threshold=5, timeout=100ms)\n\t{\n\t\tint64_t now = k_uptime_get();\n\t\tif (now - pat912x_acc_last_time > 100) {\n\t\t\tpat912x_acc_x = 0;\n\t\t\tpat912x_acc_y = 0;\n\t\t}\n\t\tpat912x_acc_last_time = now;\n\t\tpat912x_acc_x += x;\n\t\tpat912x_acc_y += y;\n\t\tif (abs(pat912x_acc_x) + abs(pat912x_acc_y) <= 5) {\n\t\t\tk_work_submit(&data->motion_work);\n\t\t\treturn;\n\t\t}\n\t\tx = pat912x_acc_x;\n\t\ty = pat912x_acc_y;\n\t\tpat912x_acc_x = 0;\n\t\tpat912x_acc_y = 0;\n\t}\n\n\tif (cfg->axis_x >= 0) {"
+          "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\t\/\/ Movement accumulator (threshold=5, timeout=100ms)\n\t{\n\t\tint64_t now = k_uptime_get();\n\t\tif (now - pat912x_acc_last_time > 50) {\n\t\t\tpat912x_acc_x = 0;\n\t\t\tpat912x_acc_y = 0;\n\t\t}\n\t\tpat912x_acc_last_time = now;\n\t\tpat912x_acc_x += x;\n\t\tpat912x_acc_y += y;\n\t\tif (abs(pat912x_acc_x) + abs(pat912x_acc_y) <= 7) {\n\t\t\tk_work_submit(&data->motion_work);\n\t\t\treturn;\n\t\t}\n\t\tx = pat912x_acc_x;\n\t\ty = pat912x_acc_y;\n\t\tpat912x_acc_x = 0;\n\t\tpat912x_acc_y = 0;\n\t}\n\n\tif (cfg->axis_x >= 0) {"
   FILE_CONTENT "${FILE_CONTENT}"
 )
 

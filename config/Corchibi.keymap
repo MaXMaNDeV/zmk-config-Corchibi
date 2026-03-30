@@ -14,14 +14,6 @@
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
-
-        lt_tog: layer_tap_toggle {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            flavor = "tap-preferred";
-            bindings = <&mo>, <&tog>;
-        };
     };
 
     macros {
@@ -74,76 +66,53 @@
             key-positions = <36 38>;  /* K + J */
             bindings = <&kp LANG1>;
         };
+
+        combo_mouse_toggle {
+            key-positions = <38 36 46>;  /* J + K + L */
+            bindings = <&tog 8>;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        /* Layer 0: Default QWERTY + Homerow Mods
-         *
-         * Left physical layout:
-         * (0,0)ESC  (1,0)Q    (2,0)W    (3,0)E    (4,0)R    (5,0)T
-         * (0,1)TAB  (1,1)A*   (2,1)S*   (3,1)D*   (4,1)F*   (5,1)G    (6,1)--
-         * (0,2)SHFT (1,2)Z    (2,2)X    (3,2)C    (4,2)V    (5,2)B
-         * (0,3)CTRL (1,3)ALT  (2,3)GUI  (3,3)MO3  (4,3)MO5  (5,3)SPC
-         *
-         * Right physical layout:
-         *           (10,0)Y   (11,0)U   (12,0)I*  (13,0)O   (14,0)P   (15,0)-
-         * (9,1)--   (10,1)H   (11,1)J*  (12,1)K*  (13,1)L*  (14,1);*  (15,1)ENT*
-         *           (10,2)N   (11,2)M   (12,2),   (13,2).   (14,2)-   (15,2)RSHFT
-         *           (10,3)MO4 (11,3)BS  (12,3)TB  (13,3)LEFT(14,3)DN  (15,3)RT
-         *
-         * * = homerow mod or layer-tap
-         * TB = trackball (no key)
-         */
+        /* Layer 0: Default QWERTY + Homerow Mods */
         default_layer {
             bindings = <
 /* Left: col 0-24 */
-/* c0(0,0)    c1(0,1)    c2(0,2)     c3(0,3)   */
    &kp ESC    &kp TAB    &kp LSHFT   &kp LCTRL
-/* c4(1,1)        c5(1,2) c6(1,3)    c7(2,0) */
    &hm RSHFT A   &kp Z   &kp LALT   &kp W
-/* c8(2,2) c9(2,3)    c10(3,0) c11(3,1)      */
    &kp X   &kp LGUI   &kp E    &hm LALT D
-/* c12(4,0) c13(4,1)       c14(4,2) c15(3,3) */
    &kp R    &hm LGUI F    &kp V    &mo 3
-/* c16(5,1) c17(5,2) c18(4,3) c19(6,1) */
    &lt 7 G  &kp B    &mo 5    &kp C_VOL_DN
-/* c20(1,0) c21(2,1)       c22(3,2) c23(5,0) c24(5,3)  */
-   &kp Q    &hm LCTRL S   &kp C    &kp T    &lt 1 SPACE
+   &kp Q    &hm LCTRL S   &kp C    &kp T    &lt 8 SPACE
 
 /* Right: col 25-49 */
-/* c25(15,0)  c26(15,1)   c27(15,2)  c28(15,3)  */
    &kp MINUS  &lt 6 RET   &kp RSHFT  &kp RIGHT
-/* c29(14,1)        c30(14,2)  c31(14,3) c32(13,0) */
    &hm LSHFT SEMI  &kp MINUS  &kp DOWN  &kp O
-/* c33(13,2) c34(13,3) c35(12,0) c36(12,1)     */
    &kp DOT   &kp LEFT  &lt 2 I   &hm RALT K
-/* c37(11,0) c38(11,1)      c39(11,2) c40(12,3) */
    &kp U     &hm RGUI J    &kp M     &none
-/* c41(10,1) c42(10,2) c43(11,3)  c44(9,1) */
    &kp H     &kp N     &kp BSPC   &kp C_VOL_UP
-/* c45(14,0) c46(13,1)      c47(12,2)  c48(10,0) c49(10,3) */
-   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &lt_tog 4 1
+   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &mo 4
             >;
         };
 
-        /* Layer 1: Auto-mouse (trackball triggered) */
-        mouse_layer {
+        /* Layer 1: 予備（将来用） */
+        reserved_layer {
             bindings = <
 &trans &trans &trans &trans
-&mo 2 &trans &trans &trans
+&trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &trans &trans
 
 &trans &trans &trans &trans
-&trans &trans &trans &kp LG(RIGHT)
-&kp PG_DN &trans &trans &mo 2
-&kp LG(LEFT) &mkp MB1 &kp PG_UP &trans
 &trans &trans &trans &trans
-&trans &mkp MB2 &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
             >;
         };
 
@@ -166,20 +135,7 @@
             >;
         };
 
-        /* Layer 3: Symbols (from Cornix Layer 1)
-         *
-         * Left:
-         * --     '      "      !      ⌘⇧5   ~
-         * --     @      ;      $      ⌘=     ⌘⇧↓   --
-         * --     `      *      :      ⌘-     \
-         * --     --     --     [hold] --     --
-         *
-         * Right:
-         *        ^      (      )      )      %      =
-         * --     #      [      ]      ]      |      !
-         *        &      {      }      --     /      ?
-         *        --     --     --     --     ⌘/     --
-         */
+        /* Layer 3: Symbols */
         symbol_layer {
             bindings = <
 /* Left */
@@ -200,11 +156,7 @@
             >;
         };
 
-        /* Layer 4: Alt Combos (from Cornix Layer 4)
-         *
-         * Left: Alt+Q/W/E/R/T, Alt+A/S/D/F/G, Alt+Z/X/C/V/B
-         * Right: mostly transparent
-         */
+        /* Layer 4: Alt Combos (Aerospace) */
         alt_layer {
             bindings = <
 /* Left */
@@ -225,16 +177,7 @@
             >;
         };
 
-        /* Layer 5: Numpad (from Cornix Layer 3)
-         *
-         * Left: bracket macro on A, F10 on F
-         *
-         * Right:
-         *        *      7      8      9      =      --
-         * --     -      4      5      6      /      --
-         *        +      1      2      3      .      ,
-         *        --     BS     0      --     --     --
-         */
+        /* Layer 5: Numpad */
         numpad_layer {
             bindings = <
 /* Left */
@@ -255,11 +198,7 @@
             >;
         };
 
-        /* Layer 6: BT & Special (Cornix Layer 5 + BT)
-         *
-         * Left: launcher macro on A, Ctrl+Alt+Gui combos on S/E/C
-         * Right: BT_SEL 0-3 on outer keys, BT_CLR on Y
-         */
+        /* Layer 6: BT & Special */
         bt_layer {
             bindings = <
 /* Left */
@@ -279,10 +218,8 @@
 &none        &none     &none        &bt BT_CLR &none
             >;
         };
-        /* Layer 7: HJKL Navigation (G hold, from Cornix Layer 2)
-         *
-         * Right: H=LEFT, J=DOWN, K=UP, L=RIGHT (vim-style)
-         */
+
+        /* Layer 7: HJKL Navigation (G hold) */
         nav_layer {
             bindings = <
 &trans &trans &trans &trans
@@ -298,6 +235,38 @@
 &trans &kp DOWN &trans &trans
 &kp LEFT &trans &trans &trans
 &trans &kp RIGHT &trans &trans &trans
+            >;
+        };
+
+        /* Layer 8: Mouse (auto-mouse + SPACE hold + J+K+L toggle)
+         *
+         * Right hand:
+         * U = browser back (Cmd+←)
+         * O = browser forward (Cmd+→)
+         * J = left click (MB1)
+         * K = middle click (MB3)
+         * L = right click (MB2)
+         * A(left) = scroll mode (mo 2)
+         * M = Page Up
+         * . = Page Down
+         */
+        mouse_layer {
+            bindings = <
+/* Left */
+&trans &trans &trans &trans
+&mo 2  &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
+
+/* Right */
+&trans &trans &trans &trans
+&trans &trans &trans &kp LG(RIGHT)
+&kp PG_DN &trans &trans &mkp MB3
+&kp LG(LEFT) &mkp MB1 &kp PG_UP &trans
+&trans &trans &trans &trans
+&trans &mkp MB2 &trans &trans &trans
             >;
         };
     };

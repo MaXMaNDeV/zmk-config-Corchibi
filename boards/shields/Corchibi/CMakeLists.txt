@@ -37,4 +37,29 @@ file(WRITE "${FILE_PATH}" "${FILE_CONTENT}")
 message(STATUS "Patched PAT912x driver (reset skip + movement accumulator): ${FILE_PATH}")
 
 
+#---
+# Patch battery_common.c: Add voltage logging to lithium_ion_mv_to_pct()
+# Logs raw battery voltage (mV) and calculated percentage for measurement.
+#---
+set(BAT_PATH "${ZEPHYR_BASE}/../zmk/app/module/drivers/sensor/battery/battery_common.c")
+if(EXISTS "${BAT_PATH}")
+  file(READ "${BAT_PATH}" BAT_CONTENT)
+
+  string(
+    REPLACE "#include \"battery_common.h\""
+            "#include \"battery_common.h\"\n#include <zephyr/logging/log.h>\nLOG_MODULE_REGISTER(battery_common, CONFIG_LOG_DEFAULT_LEVEL);"
+    BAT_CONTENT "${BAT_CONTENT}"
+  )
+
+  string(
+    REPLACE "    if (bat_mv >= 4200) {"
+            "    LOG_INF(\"BAT: %dmV -> %d%%\", bat_mv, (bat_mv >= 4200) ? 100 : ((bat_mv <= 3450) ? 0 : (bat_mv * 2 / 15 - 459)));\n    if (bat_mv >= 4200) {"
+    BAT_CONTENT "${BAT_CONTENT}"
+  )
+
+  file(WRITE "${BAT_PATH}" "${BAT_CONTENT}")
+  message(STATUS "Patched battery_common.c (voltage logging): ${BAT_PATH}")
+endif()
+
+
 # zephyr_include_directories(include)

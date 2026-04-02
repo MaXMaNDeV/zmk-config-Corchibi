@@ -51,9 +51,18 @@ if(EXISTS "${BAT_PATH}")
     BAT_CONTENT "${BAT_CONTENT}"
   )
 
+  # Fix: Change 0% cutoff from 3450mV to 3300mV (measured: device works fine at 3511mV/14%)
+  # New formula: 3300-4200mV → 0-100% linear
+  string(
+    REPLACE "    } else if (bat_mv <= 3450) {\n        return 0;\n    }\n\n    return bat_mv * 2 / 15 - 459;"
+            "    } else if (bat_mv <= 3300) {\n        return 0;\n    }\n\n    return (bat_mv - 3300) * 100 / 900;"
+    BAT_CONTENT "${BAT_CONTENT}"
+  )
+
+  # Log with new formula for verification
   string(
     REPLACE "    if (bat_mv >= 4200) {"
-            "    LOG_INF(\"BAT: %dmV -> %d%%\", bat_mv, (bat_mv >= 4200) ? 100 : ((bat_mv <= 3450) ? 0 : (bat_mv * 2 / 15 - 459)));\n    if (bat_mv >= 4200) {"
+            "    LOG_INF(\"BAT: %dmV -> %d%%\", bat_mv, (bat_mv >= 4200) ? 100 : ((bat_mv <= 3300) ? 0 : ((bat_mv - 3300) * 100 / 900)));\n    if (bat_mv >= 4200) {"
     BAT_CONTENT "${BAT_CONTENT}"
   )
 
